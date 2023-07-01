@@ -17,7 +17,8 @@ const Hero = () => {
     <div className="hero">
       <div className="flex-1 pt-36 padding-x">
         <h1 className="hero__title">
-          Find, book or rent a car <span className="text-primary-blue">quickly and easily!</span>
+          Find, book or rent a car{" "}
+          <span className="text-primary-blue">quickly and easily!</span>
         </h1>
 
         <p className="hero__subtitle">

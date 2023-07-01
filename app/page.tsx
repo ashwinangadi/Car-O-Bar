@@ -1,6 +1,6 @@
 import { fetchCars } from "@utils";
 import { HomeProps } from "@types";
-import { fuels, yearsOfProduction } from "@constants";
+import { drive, fuels, transmission, yearsOfProduction } from "@constants";
 import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
 
 export default async function Home({ searchParams }: HomeProps) {
@@ -10,26 +10,33 @@ export default async function Home({ searchParams }: HomeProps) {
     fuel: searchParams.fuel || "",
     limit: searchParams.limit || 10,
     model: searchParams.model || "",
+    drive: searchParams.drive || "",
+    transmission : searchParams.transmission || "",
   });
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+
+  // const isDataEmpty = true;
 
   return (
     <main className='overflow-hidden'>
       <Hero />
 
-      <div className='mt-12 padding-x padding-y max-width' id='discover'>
+      <div className=' mt-12 padding-x padding-y max-width ' id='discover'>
         <div className='home__text-container'>
           <h1 className='text-4xl font-extrabold'>Car Catalogue</h1>
           <p>Explore out cars you might like</p>
         </div>
 
-        <div className='home__filters'>
+        <div className='home__filters '>
           <SearchBar />
 
-          <div className='home__filter-container'>
+          <div className='home__filter-container '>
             <CustomFilter title='fuel' options={fuels} />
+            <CustomFilter title='drive' options={drive} />
+            <CustomFilter title='transmission' options={transmission} />
             <CustomFilter title='year' options={yearsOfProduction} />
+            
           </div>
         </div>
 

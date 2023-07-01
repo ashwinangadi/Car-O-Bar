@@ -21,6 +21,8 @@ export interface FilterProps {
   model?: string;
   limit?: number;
   fuel?: string;
+  drive?: string;
+  transmission?: string;
 }
 
 export interface HomeProps {

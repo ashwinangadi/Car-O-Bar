@@ -1,4 +1,5 @@
 export const manufacturers = [
+  "",
   "Acura",
   "Alfa Romeo",
   "Aston Martin",
@@ -68,6 +69,20 @@ export const fuels = [
     title: "Electricity",
     value: "Electricity",
   },
+];
+
+export const drive = [
+  { title: "Drive", value: "" },
+  { title: "AWD", value: "awd" },
+  { title: "FWD", value: "fwd" },
+  { title: "RWD", value: "rwd" },
+  { title: "4WD", value: "4wd" }
+];
+
+export const transmission = [
+  { title: "Transmission", value: "" },
+  { title: "Manual", value: "m" },
+  { title: "Automatic", value: "a" }
 ];
 
 export const footerLinks = [
