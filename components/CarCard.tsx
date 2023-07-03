@@ -25,7 +25,7 @@ const CarCard = ({ car }: CarCardProps) => {
 
   return (
     <div className="car-card group relative">
-      <div className=" absolute right-5 top-0.5 cursor-pointer fill-gray-100 hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100">
+      <div className={`absolute right-5 top-0.5 cursor-pointer fill-gray-100 hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`} onClick={() => console.log("fill heart")}>
       {heartFillSVG}
       </div>
       

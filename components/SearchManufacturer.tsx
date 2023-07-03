@@ -11,10 +11,14 @@ const SearchManufacturer = ({
 }: SearchManuFacturerProps) => {
   const [query, setQuery] = useState("");
 
+  const brands = manufacturers.map((item)=>{
+    return item.title
+})
+
   const filteredManufacturers =
     query === ""
-      ? manufacturers
-      : manufacturers.filter((item) =>
+      ? brands
+      : brands.filter((item) =>
           item
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -38,7 +42,7 @@ const SearchManufacturer = ({
 
           {/* Input field for searching */}
           <Combobox.Input
-            className="search-manufacturer__input"
+            className="search-manufacturer__input "
             displayValue={(item: string) => item}
             onChange={(event) => setQuery(event.target.value)} // Update the search query when the input changes
             placeholder="Make..."
