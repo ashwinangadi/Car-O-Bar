@@ -13,6 +13,7 @@ export interface CarProps {
   model: string;
   transmission: string;
   year: number;
+  
 }
 
 export interface FilterProps {
@@ -45,7 +46,7 @@ export interface CustomButtonProps {
   containerStyles?: string;
   textStyles?: string;
   title: string;
-  rightIcon?: string;
+  icon?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -67,4 +68,8 @@ export interface ShowMoreProps {
 export interface SearchManuFacturerProps {
   manufacturer: string;
   setManuFacturer: (manufacturer: string) => void;
+}
+
+export interface FavouriteProps {
+  favs: any;
 }

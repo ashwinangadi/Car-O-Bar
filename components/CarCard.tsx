@@ -1,4 +1,5 @@
 "use client";
+// "use strict";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -10,47 +11,44 @@ import CarDetails from "./CarDetails";
 
 interface CarCardProps {
   car: CarProps;
+  svg: any;
 }
+
 export const favArray: any[] = [];
 
-const CarCard = ({ car }: CarCardProps) => {
+
+
+const CarCard = ({ car, svg }: CarCardProps) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
 
   const [isOpen, setIsOpen] = useState(false);
+  // const [count, setCount] = useState(0)
+  
+  
+  // const favArray: any[] = [];
 
   // ---------------------- favorite ------------------------
-
+   const addFav=(svg: any)=>{
+   
+    favArray.push(svg);
+    console.log(svg);
+    // setCount(count+1)
+    // console.log(count)
+    
+   }
   // ----------------------
 
   const carRent = calculateCarRent(city_mpg, year);
 
-  const heartFillSVG = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill=" white"
-      viewBox="0 0 24 24"
-      strokeWidth={1}
-      stroke="currentColor"
-      className="w-7 h-10"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-      />
-    </svg>
-  );
+  
 
   return (
     <div className="car-card group relative">
       <div
-        className={`absolute right-5 top-0.5 cursor-pointer fill-gray-100 hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`}
-        onClick={() => {
-          favArray.push(car);
-          console.log(favArray);
-        }}
+        className={`absolute right-5 top-0.5 cursor-pointer fill-white hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`}
+        onClick={() => addFav(car)}
       >
-        {heartFillSVG}
+        {svg}
       </div>
 
       <div className="car-card__content">
@@ -107,7 +105,7 @@ const CarCard = ({ car }: CarCardProps) => {
             title="View More"
             containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
-            rightIcon="/right-arrow.svg"
+            icon="/right-arrow.svg"
             handleClick={() => setIsOpen(true)}
           />
         </div>

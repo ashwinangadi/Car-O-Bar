@@ -129,10 +129,17 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                     </div>
                   </div>
                   <CustomButton
-                    title="Book Now"
+                    title="Book now"
                     containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
                     textStyles="text-white text-[14px] leading-[17px] font-bold"
-                    rightIcon="/right-arrow.svg"
+                    icon="/shopping-cart.svg"
+                    handleClick={() => handleWebsite()}
+                  />
+                  <CustomButton
+                    title="Explore more"
+                    containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
+                    textStyles="text-white text-[14px] leading-[17px] font-bold"
+                    icon="/right-arrow.svg"
                     handleClick={() => handleWebsite()}
                   />
                 </Dialog.Panel>

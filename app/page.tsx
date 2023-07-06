@@ -1,7 +1,15 @@
-import { fetchCars } from "@utils";
+import {  fetchCars } from "@utils";
 import { HomeProps } from "@types";
 import { drive, fuels, transmission, yearsOfProduction } from "@constants";
-import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
+import {
+  CarCard,
+  ShowMore,
+  SearchBar,
+  CustomFilter,
+  Hero,
+  Favourite,
+} from "@components";
+
 
 export default async function Home({ searchParams }: HomeProps) {
   const allCars = await fetchCars({
@@ -16,7 +24,21 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
-  // const isDataEmpty = true;
+  const heartFillSVG = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      strokeWidth={1}
+      stroke="currentColor"
+      className="w-7 h-10"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+      />
+    </svg>
+  );
 
   return (
     <main className="overflow-hidden">
@@ -28,7 +50,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <p>Explore out cars you might like</p>
         </div>
         <div>
-        favArray
+          {/* <Favourite favs={favArray}/> */}
         </div>
 
         <div className="home__filters `">
@@ -45,7 +67,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <section>
             <div className="home__cars-wrapper">
               {allCars?.map((car) => (
-                <CarCard car={car} />
+                <CarCard car={car} svg={heartFillSVG} />
               ))}
             </div>
 
