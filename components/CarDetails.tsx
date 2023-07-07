@@ -128,6 +128,8 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       ))}
                     </div>
                   </div>
+                  <div className="border"/>
+                  <div className="flex gap-2">
                   <CustomButton
                     title="Book now"
                     containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
@@ -142,6 +144,8 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                     icon="/right-arrow.svg"
                     handleClick={() => handleWebsite()}
                   />
+                  </div>
+                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>

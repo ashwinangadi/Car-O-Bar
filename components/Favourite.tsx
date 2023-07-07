@@ -26,7 +26,7 @@ const Favourite = ({ favs }: FavouriteProps) => {
   );
 
   return (
-    <>
+    
       <div className="pt-20">
         <h1 className="hero__title text-center">Favourites</h1>
         {!isDataEmpty ? (
@@ -39,13 +39,12 @@ const Favourite = ({ favs }: FavouriteProps) => {
           </section>
         ) : (
           <div className="home__error-container">
-            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+            <h2 className="text-black text-xl font-bold">Oops, No favourite cars</h2>
             <p>{favs?.message}</p>
           </div>
         )}{" "}
       </div>
-      {console.log("favs", favs)}
-    </>
+    
   );
 };
 

@@ -32,7 +32,7 @@ const NavBar = () => {
             <CustomButton
               title="Favourites"
               btnType="button"
-              containerStyles=" rounded-full min-w-[130px] bg-primary-blue text-white"
+              containerStyles=" rounded-full  bg-primary-blue text-white"
             />
           </Link>
           <Link href="/cart">
@@ -40,7 +40,7 @@ const NavBar = () => {
               title="Cart"
               btnType="button"
               icon="/shopping-cart.svg"
-              containerStyles=" rounded-full min-w-[130px] bg-primary-blue text-white"
+              containerStyles=" rounded-full  bg-primary-blue text-white"
             />
           </Link>
         </div>

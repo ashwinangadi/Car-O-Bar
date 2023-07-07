@@ -207,7 +207,7 @@ export const fuels = [
   },
 ];
 
-export const drive = [
+export const wheelDrive = [
   { title: "Drive", value: "" },
   { title: "AWD", value: "awd" },
   { title: "FWD", value: "fwd" },
@@ -215,7 +215,7 @@ export const drive = [
   { title: "4WD", value: "4wd" }
 ];
 
-export const transmission = [
+export const gear = [
   { title: "Transmission", value: "" },
   { title: "Manual", value: "m" },
   { title: "Automatic", value: "a" }
