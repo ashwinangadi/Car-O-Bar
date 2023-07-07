@@ -33,8 +33,8 @@ const SearchBar = ({ setManuFacturer, setModel }: SearchBarProps) => {
   };
 
   return (
-    <form className="searchbar" onSubmit={handleSearch}>
-      <div className="searchbar__item">
+    <form className="searchbar z-20" onSubmit={handleSearch}>
+      <div className="searchbar__item z-10">
         <SearchManufacturer
           selected={searchManufacturer}
           setSelected={setSearchManufacturer}

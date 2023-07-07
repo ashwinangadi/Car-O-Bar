@@ -6,6 +6,7 @@ import { CarProps } from "@types";
 import { generateCarImageUrl } from "@utils";
 import { CustomButton } from "@components";
 import { manufacturers } from "@constants";
+import { useGlobalContext } from "@app/Context/store";
 
 interface CarDetailsProps {
   isOpen: boolean;
@@ -14,6 +15,13 @@ interface CarDetailsProps {
 }
 
 const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
+
+  const { setAddCart } = useGlobalContext();
+
+  const handleCart = (car: any) => {
+    setAddCart([car])
+    alert("Added to cart")
+  }
   const handleWebsite = () => {
     const brands = manufacturers
       .map((item) => {
@@ -135,7 +143,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                     containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
                     textStyles="text-white text-[14px] leading-[17px] font-bold"
                     icon="/shopping-cart.svg"
-                    handleClick={() => handleWebsite()}
+                    handleClick={() => handleCart(car)}
                   />
                   <CustomButton
                     title="Explore more"

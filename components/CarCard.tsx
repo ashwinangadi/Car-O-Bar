@@ -4,49 +4,33 @@
 import { useState } from "react";
 import Image from "next/image";
 
+
 import { calculateCarRent, generateCarImageUrl } from "@utils";
 import { CarProps } from "@types";
 import CustomButton from "./CustomButton";
 import CarDetails from "./CarDetails";
+import { useGlobalContext } from "@app/Context/store";
 
 interface CarCardProps {
   car: CarProps;
   svg: any;
+  func : (car : CarProps) => void;
 }
 
-export const favArray: any[] = [];
 
-
-
-const CarCard = ({ car, svg }: CarCardProps) => {
+const CarCard = ({ car, svg, func }: CarCardProps) => {
+  
   const { city_mpg, year, make, model, transmission, drive } = car;
-
+  const { favArray } = useGlobalContext();
   const [isOpen, setIsOpen] = useState(false);
-  // const [count, setCount] = useState(0)
-  
-  
-  // const favArray: any[] = [];
-
-  // ---------------------- favorite ------------------------
-   const addFav=(svg: any)=>{
-   
-    favArray.push(svg);
-    console.log(svg);
-    // setCount(count+1)
-    // console.log(count)
-    
-   }
-  // ----------------------
 
   const carRent = calculateCarRent(city_mpg, year);
-
-  
 
   return (
     <div className="car-card group relative">
       <div
-        className={`absolute right-5 top-0.5 cursor-pointer fill-white hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`}
-        onClick={() => addFav(car)}
+        className={`${favArray.some((carmodel: { model: string }) => carmodel.model === car.model) ? "fill-rose-500":" fill-white" } absolute right-5 top-0.5 cursor-pointer hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`}
+        onClick={() => func(car)}
       >
         {svg}
       </div>

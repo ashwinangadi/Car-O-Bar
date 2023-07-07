@@ -6,8 +6,13 @@ import { fetchCars } from "@utils";
 import { fuels, gear, wheelDrive, yearsOfProduction } from "@constants";
 import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
 import { CarState } from "@types";
+import DateTime from "@components/DateTime";
+import { useGlobalContext } from "./Context/store";
 
 export default function Home() {
+
+  const {favArray, setFavArray} = useGlobalContext();
+
 
   const [allCars, setAllCars] = useState<CarState>([]);
   const [loading, setLoading] = useState(false);
@@ -37,7 +42,6 @@ export default function Home() {
         drive: drive || "",
         transmission: transmission || "",
       });
-      // console.log("results",result)
       setAllCars(result);
     } catch (error) {
       console.log(error);
@@ -47,11 +51,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log(fuel, year, limit, manufacturer, model, drive, transmission)
     getCars();
   }, [fuel, year, limit, manufacturer, model, drive, transmission]);
-
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   const heartFillSVG = (
     <svg
@@ -69,20 +70,29 @@ export default function Home() {
     </svg>
   );
 
+  const addFav=(svg: any)=>{
+    if (favArray.some((carmodel: { model: string }) => carmodel.model === svg.model)) {
+      alert("This car is already your Favourite, Check in favourite section!");
+    } else {
+      setFavArray([...favArray, svg]);
+    }
+   }
+
   return (
     <main className="overflow-hidden">
       <Hero />
-      {/* {console.log("drive",drive)} */}
+      
       <div className=" mt-12 padding-x padding-y max-width " id="discover">
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
           <p>Explore out cars you might like</p>
         </div>
-        <div>{/* <Favourite favs={favArray}/> */}</div>
 
-        <div className="home__filters `">
+        <div className="home__filters">
           <SearchBar setManuFacturer={setManuFacturer} setModel={setModel} />
         </div>
+        <div className=""><DateTime /></div>
+
         <div className="home__filter-container">
           <CustomFilter title="fuel" options={fuels} setFilter={setFuel}/>
           <CustomFilter title="drive" options={wheelDrive} setFilter={setDrive}/>
@@ -93,8 +103,8 @@ export default function Home() {
         {allCars.length > 0 ? (
           <section>
             <div className="home__cars-wrapper">
-              {allCars?.map((car) => (
-                <CarCard car={car} svg={heartFillSVG} />
+              {allCars?.map((car,index) => (
+                <CarCard key={index + 1} car={car} svg={heartFillSVG} func={addFav}/>
               ))}
             </div>
 

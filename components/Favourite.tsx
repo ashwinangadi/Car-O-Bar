@@ -2,10 +2,28 @@
 import { FavouriteProps } from "@types";
 import React from "react";
 import CarCard from "./CarCard";
+import { useGlobalContext } from "@app/Context/store";
 
-const Favourite = ({ favs }: FavouriteProps) => {
-  console.log(favs);
-  const isDataEmpty = !Array.isArray(favs) || favs.length < 1 || !favs;
+const Favourite = () => {
+  const { favArray, setFavArray} = useGlobalContext();
+
+  const removeFav = (svg: any) => {
+    if (
+      favArray.some(
+        (carmodel: { model: string }) => carmodel.model === svg.model
+      )
+    ) {
+      const filtered = favArray.filter((carmodel: { model: string }) => {
+        if (carmodel.model !== svg.model) return carmodel;
+      });
+      setFavArray(filtered);
+    } else {
+      alert("Object not found.");
+    }
+  };
+
+  const isDataEmpty =
+    !Array.isArray(favArray) || favArray.length < 1 || !favArray;
 
   const close = (
     <svg
@@ -26,25 +44,24 @@ const Favourite = ({ favs }: FavouriteProps) => {
   );
 
   return (
-    
-      <div className="pt-20">
-        <h1 className="hero__title text-center">Favourites</h1>
-        {!isDataEmpty ? (
-          <section>
-            <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-10">
-              {favs?.map((car) => (
-                <CarCard car={car} svg={close} />
-              ))}
-            </div>
-          </section>
-        ) : (
-          <div className="home__error-container">
-            <h2 className="text-black text-xl font-bold">Oops, No favourite cars</h2>
-            <p>{favs?.message}</p>
+    <div className="pt-20">
+      <h1 className="hero__title text-center">Favourites</h1>
+      {!isDataEmpty ? (
+        <section>
+          <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-10">
+            {favArray?.map((car) => (
+              <CarCard car={car} svg={close} func={removeFav} />
+            ))}
           </div>
-        )}{" "}
-      </div>
-    
+        </section>
+      ) : (
+        <div className="home__error-container">
+          <h2 className="text-black text-xl font-bold">
+            Oops, No favourite cars
+          </h2>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -70,7 +70,7 @@
 }
 
 .home__filters {
-  @apply mt-12 w-full flex justify-center items-center ;
+  @apply mt-5 w-full flex justify-center items-center ;
 }
 
 .home__filter-container {
