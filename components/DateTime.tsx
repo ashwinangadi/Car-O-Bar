@@ -49,9 +49,6 @@ const DateTime = () => {
         (timeDiff % (1000 * 60 * 60)) / (1000 * 60)
       );
 
-      setTotalDays(totaldays);
-      setTotalHours(totalhours);
-
       return {
         totaldays,
         totalhours,
@@ -67,7 +64,8 @@ const DateTime = () => {
   };
 
   const { totaldays, totalhours, totalMinutes } = calculateTotalDaysAndTime();
-
+  setTotalDays(totaldays);
+  setTotalHours(totalhours);
   return (
     <div className="flex flex-col md:flex-row gap-5 justify-around">
       <div className=" flex justify-center items-center flex-col gap-5">

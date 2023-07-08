@@ -1,11 +1,15 @@
 import { useGlobalContext } from "@app/Context/store";
 import { CustomButton } from "@components";
 import { calculateCarRent } from "@utils";
-import React from "react";
+
+import React, { useState } from "react";
 
 const CheckOut = () => {
   const { addCart, totalDays, totalHours } = useGlobalContext();
-  console.log("addcart", addCart);
+  console.log("totalDays", totalDays);
+  console.log("totalHours", totalHours);
+
+    // const [days, setDays] = useState(0)
 
   let carRent;
   if (addCart.length > 0) {
@@ -13,8 +17,10 @@ const CheckOut = () => {
   }
 
   const days: number = totalHours > 0 ? totalDays + 1 : totalDays;
-
+  console.log("tDays", days);
+//   tDays > 0 && setDays(tDays) 
   const totalPrice = days * Number(carRent);
+  console.log("totalPrice", totalPrice);
 
   const handleClick = () => {
     totalPrice <= 0 ? alert("Select date and time for pick-up and drop-off") : alert("Stripe payment Coming soon!")
