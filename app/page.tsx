@@ -91,7 +91,7 @@ export default function Home() {
         <div className="home__filters">
           <SearchBar setManuFacturer={setManuFacturer} setModel={setModel} />
         </div>
-        <div className=""><DateTime /></div>
+        
 
         <div className="home__filter-container">
           <CustomFilter title="fuel" options={fuels} setFilter={setFuel}/>

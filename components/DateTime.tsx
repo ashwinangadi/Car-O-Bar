@@ -1,10 +1,23 @@
+import { useGlobalContext } from "@app/Context/store";
 import React, { useState } from "react";
 
 const DateTime = () => {
-  const [pickupDate, setPickupDate] = useState("");
-  const [pickupTime, setPickupTime] = useState("");
-  const [dropOffDate, setDropOffDate] = useState("");
-  const [dropOffTime, setDropOffTime] = useState("");
+  const {
+    pickupDate,
+    setPickupDate,
+    pickupTime,
+    setPickupTime,
+    dropOffDate,
+    setDropOffDate,
+    dropOffTime,
+    setDropOffTime,
+    totalDays,
+    setTotalDays,
+    totalHours,
+    setTotalHours,
+    totalMinutes,
+    setTotalMinutes,
+  } = useGlobalContext();
 
   const handlePickupDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -36,36 +49,36 @@ const DateTime = () => {
       const dropOffDateTime: any = new Date(`${dropOffDate} ${dropOffTime}`);
 
       const timeDiff = dropOffDateTime - pickupDateTime;
-      const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const totalHours = Math.floor(
+      const totaldays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const totalhours = Math.floor(
         (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
-      const totalMinutes = Math.floor(
+      const totalminutes = Math.floor(
         (timeDiff % (1000 * 60 * 60)) / (1000 * 60)
       );
-      
+
+      setTotalDays(totaldays);
+      setTotalHours(totalhours);
+      setTotalMinutes(totalminutes);
 
       return {
-        totalDays,
-        totalHours,
-        totalMinutes,
-       
+        totaldays,
+        totalhours,
+        totalminutes,
       };
     }
 
     return {
-      totalDays: 0,
-      totalHours: 0,
-      totalMinutes: 0,
-      
+      totaldays: 0,
+      totalhours: 0,
+      totalminutes: 0,
     };
   };
 
-  const { totalDays, totalHours, totalMinutes } =
-    calculateTotalDaysAndTime();
+  const { totaldays, totalhours, totalminutes } = calculateTotalDaysAndTime();
 
   return (
-    <div className="mt-5 flex justify-center items-center flex-wrap gap-5">
+    <div className="flex  flex-col justify-center items-center  gap-5">
       <div className="flex flex-col gap-1 border border-gray-300 px-2 py-2 rounded-xl">
         <label className="text-sm text-center font-semibold">
           Pick-up Date & Time
@@ -114,16 +127,6 @@ const DateTime = () => {
           </div>
         </div>
       </div>
-
-      {/* <div>
-        <p>Total Days: {totalDays}</p>
-        <p>
-          Total hours: {totalHours} hours {totalMinutes} minutes
-        </p>
-        <p>
-          Total Time: {totalTime} hours {totalMinutes} minutes
-        </p>
-      </div> */}
     </div>
   );
 };

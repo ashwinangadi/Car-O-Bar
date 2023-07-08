@@ -1,12 +1,14 @@
 import { Fragment } from "react";
 import Image from "next/image";
 
+
 import { Dialog, Transition } from "@headlessui/react";
 import { CarProps } from "@types";
 import { generateCarImageUrl } from "@utils";
 import { CustomButton } from "@components";
 import { manufacturers } from "@constants";
 import { useGlobalContext } from "@app/Context/store";
+import Link from "next/link";
 
 interface CarDetailsProps {
   isOpen: boolean;
@@ -15,13 +17,11 @@ interface CarDetailsProps {
 }
 
 const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
-
   const { setAddCart } = useGlobalContext();
-
   const handleCart = (car: any) => {
-    setAddCart([car])
-    alert("Added to cart")
-  }
+    setAddCart([car]);
+  };
+
   const handleWebsite = () => {
     const brands = manufacturers
       .map((item) => {
@@ -136,24 +136,26 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       ))}
                     </div>
                   </div>
-                  <div className="border"/>
-                  <div className="flex gap-2">
-                  <CustomButton
-                    title="Book now"
-                    containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
-                    textStyles="text-white text-[14px] leading-[17px] font-bold"
-                    icon="/shopping-cart.svg"
-                    handleClick={() => handleCart(car)}
-                  />
-                  <CustomButton
-                    title="Explore more"
-                    containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
-                    textStyles="text-white text-[14px] leading-[17px] font-bold"
-                    icon="/right-arrow.svg"
-                    handleClick={() => handleWebsite()}
-                  />
+                  <div className="border" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link href="/cart">
+                      <CustomButton
+                        title="Book now"
+                        containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
+                        textStyles="text-white text-[14px] leading-[17px] font-bold"
+                        icon="/shopping-cart.svg"
+                        handleClick={() => handleCart(car)}
+                      />
+                    </Link>
+
+                    <CustomButton
+                      title="Explore more"
+                      containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
+                      textStyles="text-white text-[14px] leading-[17px] font-bold"
+                      icon="/right-arrow.svg"
+                      handleClick={() => handleWebsite()}
+                    />
                   </div>
-                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>
