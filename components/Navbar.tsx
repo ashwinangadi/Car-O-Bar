@@ -27,12 +27,12 @@ const NavBar = () => {
             className="object-contain"
           />
         </Link>
-        <div className="flex gap-5">
+        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:gap-5">
           <Link href="/favourites">
             <CustomButton
               title="Favourites"
               btnType="button"
-              containerStyles=" rounded-full  bg-primary-blue text-white"
+              containerStyles=" rounded-full  bg-primary-blue h-10 text-white"
             />
           </Link>
           <Link href="/cart">
@@ -40,7 +40,7 @@ const NavBar = () => {
               title="Cart"
               btnType="button"
               icon="/shopping-cart.svg"
-              containerStyles=" rounded-full  bg-primary-blue text-white"
+              containerStyles=" rounded-full bg-primary-blue h-10 text-white"
             />
           </Link>
         </div>

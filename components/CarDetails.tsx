@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
 
-
 import { Dialog, Transition } from "@headlessui/react";
 import { CarProps } from "@types";
 import { generateCarImageUrl } from "@utils";
@@ -116,7 +115,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                   </div>
 
                   <div className="flex-1 flex flex-col gap-2">
-                    <h2 className="font-semibold text-xl capitalize">
+                    <h2 className="font-semibold text-xl capitalize underline underline-offset-4" onClick={() => handleWebsite()}>
                       {car.make} {car.model}
                     </h2>
 
@@ -136,8 +135,9 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       ))}
                     </div>
                   </div>
+
                   <div className="border" />
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="">
                     <Link href="/cart">
                       <CustomButton
                         title="Book now"
@@ -147,14 +147,6 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                         handleClick={() => handleCart(car)}
                       />
                     </Link>
-
-                    <CustomButton
-                      title="Explore more"
-                      containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
-                      textStyles="text-white text-[14px] leading-[17px] font-bold"
-                      icon="/right-arrow.svg"
-                      handleClick={() => handleWebsite()}
-                    />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
