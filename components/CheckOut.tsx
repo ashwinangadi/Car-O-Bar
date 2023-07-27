@@ -1,15 +1,23 @@
-import { useGlobalContext } from "@app/Context/store";
+// import { useGlobalContext } from "@app/Context/store";
 import { CustomButton } from "@components";
+import { useAppSelector } from "@redux/store";
 import { calculateCarRent } from "@utils";
 
 import React, { useState } from "react";
 
 const CheckOut = () => {
-  const { addCart, totalDays, totalHours } = useGlobalContext();
+  // const { addCart } = useGlobalContext();
+
+  const addCart = useAppSelector((state: any) => state.addCartReducer.cart);
+  const totalDays = useAppSelector((state: any) => state.totalDaysReducer.days);
+  const totalHours = useAppSelector(
+    (state: any) => state.totalHoursReducer.hours
+  );
+
   console.log("totalDays", totalDays);
   console.log("totalHours", totalHours);
 
-    // const [days, setDays] = useState(0)
+  // const [days, setDays] = useState(0)
 
   let carRent;
   if (addCart.length > 0) {
@@ -18,13 +26,15 @@ const CheckOut = () => {
 
   const days: number = totalHours > 0 ? totalDays + 1 : totalDays;
   console.log("tDays", days);
-//   tDays > 0 && setDays(tDays) 
+  //   tDays > 0 && setDays(tDays)
   const totalPrice = days * Number(carRent);
   console.log("totalPrice", totalPrice);
 
   const handleClick = () => {
-    totalPrice <= 0 ? alert("Select date and time for pick-up and drop-off") : alert("Stripe payment Coming soon!")
-  }
+    totalPrice <= 0
+      ? alert("Select date and time for pick-up and drop-off")
+      : alert("Stripe payment Coming soon!");
+  };
 
   return (
     <div className="col-start-9 col-end-13 rounded-xl space-y-3">

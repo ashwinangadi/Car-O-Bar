@@ -2,6 +2,7 @@ import "./globals.css";
 import { GlobalContextProvider } from "./Context/store";
 
 import { Footer, NavBar } from "@components";
+import { ReduxProvider } from "@redux/provider";
 
 export const metadata = {
   title: "Car-O-Bar",
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative">
         <NavBar />
-        <GlobalContextProvider>{children}</GlobalContextProvider>
+        <ReduxProvider>{children}</ReduxProvider>
         <Footer />
       </body>
     </html>

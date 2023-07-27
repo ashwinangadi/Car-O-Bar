@@ -6,8 +6,12 @@ import { CarProps } from "@types";
 import { generateCarImageUrl } from "@utils";
 import { CustomButton } from "@components";
 import { manufacturers } from "@constants";
-import { useGlobalContext } from "@app/Context/store";
+// import { useGlobalContext } from "./Context/store"
 import Link from "next/link";
+
+import { useDispatch } from "react-redux/es/exports";
+import { AppDispatch } from "@redux/store";
+import { addToCart } from "@redux/favCart/addCartSlice";
 
 interface CarDetailsProps {
   isOpen: boolean;
@@ -16,9 +20,10 @@ interface CarDetailsProps {
 }
 
 const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
-  const { setAddCart } = useGlobalContext();
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleCart = (car: any) => {
-    setAddCart([car]);
+    dispatch(addToCart(car));
   };
 
   const handleWebsite = () => {
@@ -115,7 +120,10 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                   </div>
 
                   <div className="flex-1 flex flex-col gap-2">
-                    <h2 className="font-semibold text-xl capitalize underline underline-offset-4" onClick={() => handleWebsite()}>
+                    <h2
+                      className="font-semibold text-xl capitalize underline underline-offset-4"
+                      onClick={() => handleWebsite()}
+                    >
                       {car.make} {car.model}
                     </h2>
 

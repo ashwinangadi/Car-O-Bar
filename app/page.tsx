@@ -5,14 +5,22 @@ import Image from "next/image";
 import { fetchCars } from "@utils";
 import { fuels, gear, wheelDrive, yearsOfProduction } from "@constants";
 import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
-import { CarState } from "@types";
+import { CarProps, CarState } from "@types";
 import DateTime from "@components/DateTime";
-import { useGlobalContext } from "./Context/store";
+// import { useGlobalContext } from "./Context/store";
+
+import { addFav, removeFav } from "@redux/favCart/favArraySlice";
+import { useDispatch } from "react-redux/es/exports";
+import { AppDispatch } from "@redux/store";
+import { useAppSelector } from "@redux/store";
 
 export default function Home() {
+  const dispatch = useDispatch<AppDispatch>();
+  const favArray = useAppSelector(
+    (state: any) => state.favArrayReducer.favArray
+  );
 
-  const {favArray, setFavArray} = useGlobalContext();
-
+  // const {favArray, setFavArray} = useGlobalContext();
 
   const [allCars, setAllCars] = useState<CarState>([]);
   const [loading, setLoading] = useState(false);
@@ -25,7 +33,7 @@ export default function Home() {
   const [fuel, setFuel] = useState("");
   const [year, setYear] = useState(2022);
   const [drive, setDrive] = useState("");
-  const [transmission, setTransmission] = useState("")
+  const [transmission, setTransmission] = useState("");
 
   // limit state
   const [limit, setLimit] = useState(10);
@@ -70,18 +78,23 @@ export default function Home() {
     </svg>
   );
 
-  const addFav=(svg: any)=>{
-    if (favArray.some((carmodel: { model: string }) => carmodel.model === svg.model)) {
+  const addFavs = (svg: CarProps) => {
+    if (
+      favArray.some(
+        (carmodel: { model: string }) => carmodel.model === svg.model
+      )
+    ) {
       alert("This car is already your Favourite, Check in favourite section!");
     } else {
-      setFavArray([...favArray, svg]);
+      dispatch(addFav(svg));
     }
-   }
+    // dispatch(addFav(svg));
+  };
 
   return (
     <main className="overflow-hidden">
       <Hero />
-      
+
       <div className=" mt-12 padding-x padding-y max-width " id="discover">
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
@@ -91,37 +104,53 @@ export default function Home() {
         <div className="home__filters">
           <SearchBar setManuFacturer={setManuFacturer} setModel={setModel} />
         </div>
-        
 
         <div className="home__filter-container">
-          <CustomFilter title="fuel" options={fuels} setFilter={setFuel}/>
-          <CustomFilter title="drive" options={wheelDrive} setFilter={setDrive}/>
-          <CustomFilter title="transmission" options={gear} setFilter={setTransmission}/>
-          <CustomFilter title="year" options={yearsOfProduction} setFilter={setYear}/>
+          <CustomFilter title="fuel" options={fuels} setFilter={setFuel} />
+          <CustomFilter
+            title="drive"
+            options={wheelDrive}
+            setFilter={setDrive}
+          />
+          <CustomFilter
+            title="transmission"
+            options={gear}
+            setFilter={setTransmission}
+          />
+          <CustomFilter
+            title="year"
+            options={yearsOfProduction}
+            setFilter={setYear}
+          />
         </div>
 
         {allCars.length > 0 ? (
           <section>
             <div className="home__cars-wrapper">
-              {allCars?.map((car,index) => (
-                <CarCard key={index + 1} car={car} svg={heartFillSVG} func={addFav}/>
+              {allCars?.map((car, index) => (
+                <CarCard
+                  key={index + 1}
+                  car={car}
+                  svg={heartFillSVG}
+                  func={addFavs}
+                />
               ))}
             </div>
 
             {loading && (
-              <div className='mt-16 w-full flex-center'>
+              <div className="mt-16 w-full flex-center">
                 <Image
-                  src='./loader.svg'
-                  alt='loader'
+                  src="./loader.svg"
+                  alt="loader"
                   width={50}
                   height={50}
-                  className='object-contain'
+                  className="object-contain"
                 />
               </div>
             )}
 
             <ShowMore
-              pageNumber={limit  / 10}
+              pageNumber={limit / 10}
               isNext={limit > allCars.length}
               setLimit={setLimit}
             />

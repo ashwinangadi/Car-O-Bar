@@ -1,13 +1,23 @@
 "use client";
-import { FavouriteProps } from "@types";
+
 import React from "react";
 import CarCard from "./CarCard";
-import { useGlobalContext } from "@app/Context/store";
+// import { useGlobalContext } from "@app/Context/store";
+import { useAppSelector } from "@redux/store";
+import { removeFav } from "@redux/favCart/favArraySlice";
+import { useDispatch } from "react-redux/es/exports";
+import { AppDispatch } from "@redux/store";
 
 const Favourite = () => {
-  const { favArray, setFavArray} = useGlobalContext();
+  // const { favArray, setFavArray} = useGlobalContext();
 
-  const removeFav = (svg: any) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const favArray = useAppSelector(
+    (state: any) => state.favArrayReducer.favArray
+  );
+
+  const removeFavs = (svg: any) => {
     if (
       favArray.some(
         (carmodel: { model: string }) => carmodel.model === svg.model
@@ -16,7 +26,8 @@ const Favourite = () => {
       const filtered = favArray.filter((carmodel: { model: string }) => {
         if (carmodel.model !== svg.model) return carmodel;
       });
-      setFavArray(filtered);
+      // console.log(filtered)
+      dispatch(removeFav(svg));
     } else {
       alert("Object not found.");
     }
@@ -37,7 +48,7 @@ const Favourite = () => {
       <path
         fill="none"
         stroke="#000000"
-        stroke-width="2"
+        strokeWidth="2"
         d="M7,7 L17,17 M7,17 L17,7"
       ></path>
     </svg>
@@ -50,7 +61,7 @@ const Favourite = () => {
         <section>
           <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-10">
             {favArray?.map((car) => (
-              <CarCard car={car} svg={close} func={removeFav} />
+              <CarCard car={car} svg={close} func={removeFavs} />
             ))}
           </div>
         </section>

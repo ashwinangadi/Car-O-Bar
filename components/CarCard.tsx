@@ -4,24 +4,27 @@
 import { useState } from "react";
 import Image from "next/image";
 
-
 import { calculateCarRent, generateCarImageUrl } from "@utils";
 import { CarProps } from "@types";
 import CustomButton from "./CustomButton";
 import CarDetails from "./CarDetails";
-import { useGlobalContext } from "@app/Context/store";
+// import { useGlobalContext } from "@app/Context/store";
+import { useAppSelector } from "@redux/store";
 
 interface CarCardProps {
   car: CarProps;
   svg: any;
-  func : (car : CarProps) => void;
+  func: (car: CarProps) => void;
 }
 
-
 const CarCard = ({ car, svg, func }: CarCardProps) => {
-  
+  const favArray = useAppSelector(
+    (state: any) => state.favArrayReducer.favArray
+  );
+
   const { city_mpg, year, make, model, transmission, drive } = car;
-  const { favArray } = useGlobalContext();
+  // const { favArray } = useGlobalContext();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const carRent = calculateCarRent(city_mpg, year);
@@ -29,7 +32,13 @@ const CarCard = ({ car, svg, func }: CarCardProps) => {
   return (
     <div className="car-card group relative">
       <div
-        className={`${favArray.some((carmodel: { model: string }) => carmodel.model === car.model) ? "fill-rose-500":" fill-white" } absolute right-5 top-0.5 cursor-pointer hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`}
+        className={`${
+          favArray.some(
+            (carmodel: { model: string }) => carmodel.model === car.model
+          )
+            ? "fill-rose-500"
+            : " fill-white"
+        } absolute right-5 top-0.5 cursor-pointer hover:fill-rose-500 ease-in-out duration-150 hover:-translate-y-1 hover:scale-100`}
         onClick={() => func(car)}
       >
         {svg}

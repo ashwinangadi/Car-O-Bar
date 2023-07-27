@@ -1,13 +1,14 @@
 "use client";
-import { useGlobalContext } from "@app/Context/store";
+// import { useGlobalContext } from "@app/Context/store";
 import { generateCarImageUrl } from "@utils";
 import Image from "next/image";
 import React from "react";
 import DateTime from "./DateTime";
 import CheckOut from "./CheckOut";
+import { useAppSelector } from "@redux/store";
 
 const Book = () => {
-  const { addCart } = useGlobalContext();
+  const addCart = useAppSelector((state: any) => state.addCartReducer.cart);
   console.log("addcart", addCart);
 
   return (
@@ -21,7 +22,7 @@ const Book = () => {
           <div className="col-start-1 col-end-9  p-5 me-2 rounded-xl shadow-lg">
             <div className="flex flex-col-reverse md:grid md:grid-cols-3">
               <div className="space-y-2 col-start-1 col-end-3">
-                {addCart?.map((item) => {
+                {addCart?.map((item: any) => {
                   return (
                     <>
                       <h1 className="text-2xl capitalize font-bold tracking-widest">
@@ -127,7 +128,7 @@ const Book = () => {
             </div>
           </div>
 
-          <CheckOut/>
+          <CheckOut />
         </section>
       )}
     </>

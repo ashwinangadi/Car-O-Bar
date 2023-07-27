@@ -1,10 +1,15 @@
-import { useGlobalContext } from "@app/Context/store";
+// import { useGlobalContext } from "@app/Context/store";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux/es/exports";
+import { AppDispatch } from "@redux/store";
+import { totalDay } from "@redux/daysHours/totalDaysSlice";
+import { totalhour } from "@redux/daysHours/totalHoursSlice";
 
 const DateTime = () => {
+  const dispatch = useDispatch<AppDispatch>();
 
-  const { addCart, setTotalDays, setTotalHours } = useGlobalContext();
+  // const { setTotalDays, setTotalHours } = useGlobalContext();
 
   const [pickupDate, setPickupDate] = useState("");
   const [pickupTime, setPickupTime] = useState("");
@@ -63,9 +68,9 @@ const DateTime = () => {
     };
   };
 
-  const { totaldays, totalhours, totalMinutes } = calculateTotalDaysAndTime();
-  setTotalDays(totaldays);
-  setTotalHours(totalhours);
+  const { totaldays, totalhours } = calculateTotalDaysAndTime();
+  dispatch(totalDay(totaldays));
+  dispatch(totalhour(totalhours));
   return (
     <div className="flex flex-col md:flex-row gap-5 justify-around">
       <div className=" flex justify-center items-center flex-col gap-5">
